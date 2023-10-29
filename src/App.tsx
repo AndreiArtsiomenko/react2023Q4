@@ -1,8 +1,9 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { PeopleType } from './types/types';
 import getData from './utils/api';
 import './App.css';
 import Header from './components/Header/Header';
+import Main from './components/Main/Main';
 
 type AppProps = object;
 
@@ -47,23 +48,7 @@ export default class App extends Component<AppProps, AppState> {
         {this.state.loading ? (
           <h2 className={'loading'}>Loading...</h2>
         ) : (
-          <main>
-            {this.state.people.length ? (
-              <div>
-                {this.state.people.map((person) => (
-                  <Fragment key={person.name}>
-                    <h2>{person.name}</h2>
-                    <p>Birth year: {person.birth_year}</p>
-                    <p>Gender: {person.gender}</p>
-                    <p>Mass: {person.mass}kg</p>
-                    <p>Height: {person.height}</p>
-                  </Fragment>
-                ))}
-              </div>
-            ) : (
-              <h2>Not Found</h2>
-            )}
-          </main>
+          <Main people={this.state.people} />
         )}
       </>
     );
