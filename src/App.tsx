@@ -4,6 +4,7 @@ import getData from './utils/api';
 import './App.css';
 import Header from './components/Header/Header';
 import Main from './components/Main/Main';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
 type AppProps = object;
 
@@ -44,11 +45,19 @@ export default class App extends Component<AppProps, AppState> {
   render() {
     return (
       <>
-        <Header value={this.state.value} onChange={this.handleChange} onClick={this.handleSearch} />
+        <ErrorBoundary>
+          <Header
+            value={this.state.value}
+            onChange={this.handleChange}
+            onClick={this.handleSearch}
+          />
+        </ErrorBoundary>
         {this.state.loading ? (
           <h2 className={'loading'}>Loading...</h2>
         ) : (
-          <Main people={this.state.people} />
+          <ErrorBoundary>
+            <Main people={this.state.people} />
+          </ErrorBoundary>
         )}
       </>
     );
