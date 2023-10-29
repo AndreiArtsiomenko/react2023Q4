@@ -11,15 +11,18 @@ export default class Header extends Component<HeaderProps> {
   render() {
     return (
       <header className={style.header}>
-        <input
-          className={style.search}
-          type="text"
-          value={this.props.value}
-          onChange={(e) => this.props.onChange(e.target.value)}
-        />
-        <button type="submit" onClick={(e) => this.props.onClick(e)}>
-          Search
-        </button>
+        <h1>The Star Wars</h1>
+        <div>
+          <input
+            className={style.search}
+            type="text"
+            value={this.props.value}
+            onChange={(e) => this.props.onChange(e.target.value)}
+          />
+          <button type="submit" onClick={(e) => this.props.onClick(e)}>
+            Search
+          </button>
+        </div>
       </header>
     );
   }
