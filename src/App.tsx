@@ -1,11 +1,12 @@
-import './App.css';
 import React, { Component, Fragment } from 'react';
 import { PeopleType } from './types/types';
 import getData from './utils/api';
+import './App.css';
+import Header from './components/Header/Header';
 
 type AppProps = object;
 
-export type AppState = {
+type AppState = {
   people: PeopleType[];
   value: string;
   loading: boolean;
@@ -42,16 +43,7 @@ export default class App extends Component<AppProps, AppState> {
   render() {
     return (
       <>
-        <header>
-          <input
-            type="text"
-            value={this.state.value}
-            onChange={(e) => this.handleChange(e.target.value)}
-          />
-          <button type="submit" onClick={(e) => this.handleSearch(e)}>
-            Search
-          </button>
-        </header>
+        <Header value={this.state.value} onChange={this.handleChange} onClick={this.handleSearch} />
         {this.state.loading ? (
           <h2 className={'loading'}>Loading...</h2>
         ) : (

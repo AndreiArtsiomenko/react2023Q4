@@ -1,0 +1,11 @@
+header {
+  display: flex;
+  justify-content: end;
+  padding-bottom: 3rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.87);
+}
+
+.search {
+  margin-right: 1rem;
+  padding: 0.5rem;
+}
