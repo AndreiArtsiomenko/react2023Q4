@@ -21,6 +21,12 @@ export default class App extends Component<AppProps, AppState> {
     loading: true,
   };
 
+  getDataState = (searchData: string) => {
+    getData(searchData).then((res) => {
+      this.setState({ ...this.state, people: res, loading: false });
+    });
+  };
+
   handleChange = (search: string) => {
     this.setState({ ...this.state, value: search });
   };
@@ -29,17 +35,13 @@ export default class App extends Component<AppProps, AppState> {
     event.preventDefault();
     localStorage.setItem('searchParam', this.state.value.trim());
     this.setState({ ...this.state, loading: true });
-    getData(this.state.value).then((res) => {
-      this.setState({ ...this.state, people: res, loading: false });
-    });
+    this.getDataState(this.state.value);
   };
 
   componentDidMount(): void {
     const searchParam = localStorage.getItem('searchParam') || '';
     this.setState({ ...this.state, value: searchParam });
-    getData(searchParam).then((res) => {
-      this.setState({ ...this.state, people: res, loading: false });
-    });
+    this.getDataState(searchParam);
   }
 
   render() {
