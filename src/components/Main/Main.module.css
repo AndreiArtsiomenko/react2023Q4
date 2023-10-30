@@ -1,0 +1,16 @@
+.main {
+  display: flex;
+  justify-content: center;
+  padding-top: 3rem;
+}
+.people {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+@media screen and (max-width: 1180px) {
+  .people {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
