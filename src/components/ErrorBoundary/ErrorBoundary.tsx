@@ -30,7 +30,8 @@ export default class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBo
     if (this.state.info && this.state.error) {
       return (
         <div>
-          <h2 style={{ color: '#FF0000' }}>Oops! Error</h2>
+          <h2 style={{ color: '#FF0000' }}>Oops!</h2>
+          <p>Reload the page</p>
           <button
             style={{
               padding: '0.5rem 1rem',
