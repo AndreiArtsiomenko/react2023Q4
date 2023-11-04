@@ -1,67 +1,53 @@
-import React, { Component } from 'react';
-import { PeopleType } from './types/types';
-import getData from './utils/api';
+import { useEffect, useState } from 'react';
 import './App.css';
+import getData from './utils/api';
+import { PeopleType } from './types/types';
+
 import Header from './components/Header/Header';
 import Main from './components/Main/Main';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
-type AppProps = object;
+export default function App() {
+  const [people, setPeople] = useState<PeopleType[]>([]);
+  const [value, setValue] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(true);
 
-type AppState = {
-  people: PeopleType[];
-  value: string;
-  loading: boolean;
-};
-
-export default class App extends Component<AppProps, AppState> {
-  state: AppState = {
-    people: [],
-    value: '',
-    loading: true,
-  };
-
-  getDataState = (searchData: string) => {
+  const getDataState = (searchData: string) => {
     getData(searchData).then((res) => {
-      this.setState({ ...this.state, people: res, loading: false });
+      setPeople(res);
+      setLoading(false);
     });
   };
 
-  handleChange = (search: string) => {
-    this.setState({ ...this.state, value: search });
-  };
-
-  handleSearch = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.preventDefault();
-    localStorage.setItem('searchParam', this.state.value.trim());
-    this.setState({ ...this.state, loading: true });
-    this.getDataState(this.state.value);
-  };
-
-  componentDidMount(): void {
+  useEffect(() => {
     const searchParam = localStorage.getItem('searchParam') || '';
-    this.setState({ ...this.state, value: searchParam });
-    this.getDataState(searchParam);
-  }
+    setValue(searchParam);
+    getDataState(searchParam);
+  }, []);
 
-  render() {
-    return (
-      <>
+  const handleChange = (search: string) => {
+    setValue(search);
+  };
+
+  const handleSearch = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault();
+    localStorage.setItem('searchParam', value.trim());
+    setLoading(true);
+    getDataState(value);
+  };
+
+  return (
+    <>
+      <ErrorBoundary>
+        <Header value={value} onChange={handleChange} onClick={handleSearch} />
+      </ErrorBoundary>
+      {loading ? (
+        <h2 className={'loading'}>Loading...</h2>
+      ) : (
         <ErrorBoundary>
-          <Header
-            value={this.state.value}
-            onChange={this.handleChange}
-            onClick={this.handleSearch}
-          />
+          <Main people={people} />
         </ErrorBoundary>
-        {this.state.loading ? (
-          <h2 className={'loading'}>Loading...</h2>
-        ) : (
-          <ErrorBoundary>
-            <Main people={this.state.people} />
-          </ErrorBoundary>
-        )}
-      </>
-    );
-  }
+      )}
+    </>
+  );
 }
