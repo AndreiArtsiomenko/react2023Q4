@@ -1,19 +1,21 @@
 import { useEffect, useState } from 'react';
+
 import './App.css';
-import getData from './utils/api';
+import { getPeople } from './utils/api';
 import { PeopleType } from './types/types';
 
 import Header from './components/Header/Header';
-import Main from './components/Main/Main';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
+import { Outlet } from 'react-router-dom';
+import Loading from './components/Loading/Loading';
 
 export default function App() {
   const [people, setPeople] = useState<PeopleType[]>([]);
-  const [value, setValue] = useState<string>('');
+  const [valueSearch, setValueSearch] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
 
   const getDataState = (searchData: string) => {
-    getData(searchData).then((res) => {
+    getPeople(searchData).then((res) => {
       setPeople(res);
       setLoading(false);
     });
@@ -21,31 +23,31 @@ export default function App() {
 
   useEffect(() => {
     const searchParam = localStorage.getItem('searchParam') || '';
-    setValue(searchParam);
+    setValueSearch(searchParam);
     getDataState(searchParam);
   }, []);
 
   const handleChange = (search: string) => {
-    setValue(search);
+    setValueSearch(search);
   };
 
   const handleSearch = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
-    localStorage.setItem('searchParam', value.trim());
+    localStorage.setItem('searchParam', valueSearch.trim());
     setLoading(true);
-    getDataState(value);
+    getDataState(valueSearch);
   };
 
   return (
     <>
       <ErrorBoundary>
-        <Header value={value} onChange={handleChange} onClick={handleSearch} />
+        <Header value={valueSearch} onChange={handleChange} onClick={handleSearch} />
       </ErrorBoundary>
       {loading ? (
-        <h2 className={'loading'}>Loading...</h2>
+        <Loading />
       ) : (
         <ErrorBoundary>
-          <Main people={people} />
+          <Outlet context={people} />
         </ErrorBoundary>
       )}
     </>

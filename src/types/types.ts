@@ -13,6 +13,6 @@ export type PeopleType = {
   skin_color?: string;
   species?: string[];
   starships?: string[];
-  url?: string;
+  url: string;
   vehicles?: string[];
 };
