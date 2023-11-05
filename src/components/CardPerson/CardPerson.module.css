@@ -1,12 +1,13 @@
 .person_cards {
   display: flex;
+  width: 12rem;
   flex-direction: column;
-  padding: 1rem 2rem;
+  padding: 1rem;
   border: 3px solid rgba(255, 255, 255, 0.87);
   border-radius: 1rem;
 }
 
-.person_cards > h2 {
+.person_cards>h3 {
   margin-bottom: 2rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.87);
 }
