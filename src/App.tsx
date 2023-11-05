@@ -13,10 +13,12 @@ export default function App() {
   const [people, setPeople] = useState<PeopleType[]>([]);
   const [valueSearch, setValueSearch] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
+  const [countPeople, setCountPeople] = useState<string>('');
 
   const getDataState = (searchData: string) => {
     getPeople(searchData).then((res) => {
-      setPeople(res);
+      setPeople(res.results);
+      setCountPeople(res.count);
       setLoading(false);
     });
   };
@@ -47,7 +49,7 @@ export default function App() {
         <Loading />
       ) : (
         <ErrorBoundary>
-          <Outlet context={people} />
+          <Outlet context={[people, setPeople, countPeople]} />
         </ErrorBoundary>
       )}
     </>
