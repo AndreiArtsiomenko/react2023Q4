@@ -14,6 +14,7 @@ export default function App() {
   const [valueSearch, setValueSearch] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
   const [countPeople, setCountPeople] = useState<string>('');
+  const [currentPage, setCurrentPage] = useState('1');
 
   const getDataState = (searchData: string) => {
     getPeople(searchData).then((res) => {
@@ -36,6 +37,7 @@ export default function App() {
   const handleSearch = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
     localStorage.setItem('searchParam', valueSearch.trim());
+    setCurrentPage('1');
     setLoading(true);
     getDataState(valueSearch);
   };
@@ -49,7 +51,9 @@ export default function App() {
         <Loading />
       ) : (
         <ErrorBoundary>
-          <Outlet context={[people, setPeople, countPeople]} />
+          <Outlet
+            context={[people, setPeople, countPeople, valueSearch, currentPage, setCurrentPage]}
+          />
         </ErrorBoundary>
       )}
     </>

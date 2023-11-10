@@ -4,13 +4,8 @@
   margin-top: 2rem;
 }
 
-.container a {
+button {
   padding: 0.7rem;
   border: 3px solid rgba(255, 255, 255, 0.87);
   border-radius: 0.5rem;
-}
-
-.container a.active {
-  background-color: #ffffff;
-  color: #000000;
 }

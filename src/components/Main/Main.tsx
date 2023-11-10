@@ -5,10 +5,18 @@ import CardPerson from '../CardPerson/CardPerson';
 import Loading from '../Loading/Loading';
 import Pagination from '../Pagination/Pagination';
 
-type OutletParams = [PeopleType[], React.Dispatch<React.SetStateAction<PeopleType[]>>, string];
+type OutletParams = [
+  PeopleType[],
+  React.Dispatch<React.SetStateAction<PeopleType[]>>,
+  string,
+  string,
+  string,
+  React.Dispatch<React.SetStateAction<string>>,
+];
 
 export default function Main() {
-  const [people, setPeople, countPeople] = useOutletContext<OutletParams>();
+  const [people, setPeople, countPeople, valueSearch, currentPage, setCurrentPage] =
+    useOutletContext<OutletParams>();
   const navigation = useNavigation();
   return (
     <main className={style.main}>
@@ -24,7 +32,13 @@ export default function Main() {
               );
             })}
           </div>
-          <Pagination countPeople={countPeople} setPeople={setPeople} />
+          <Pagination
+            countPeople={countPeople}
+            setPeople={setPeople}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            valueSearch={valueSearch}
+          />
         </div>
       ) : (
         <h2>Not Found</h2>

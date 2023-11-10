@@ -1,8 +1,8 @@
 import { LoaderFunction } from 'react-router-dom';
 
 const getPeople = async (search?: string, page: string = '1') => {
-  const url = 'https://swapi.dev/api/people/?search=';
-  const response = await fetch(`${url}${search}&page=${page}`);
+  const url = 'https://swapi.dev/api/people/';
+  const response = await fetch(`${url}?search=${search}&page=${page}`);
   const data = await response.json();
   return data;
 };

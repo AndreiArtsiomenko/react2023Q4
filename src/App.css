@@ -9,3 +9,13 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
+button {
+  cursor: pointer;
+}
+
+button.active {
+  border: none;
+  background-color: #ffffff;
+  color: #000000;
+}
