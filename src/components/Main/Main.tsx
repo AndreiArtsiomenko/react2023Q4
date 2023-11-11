@@ -4,19 +4,19 @@ import { PeopleType } from '../../types/types';
 import CardPerson from '../CardPerson/CardPerson';
 import Loading from '../Loading/Loading';
 import Pagination from '../Pagination/Pagination';
+import { useContext } from 'react';
+import { Context } from '../../Context';
 
 type OutletParams = [
-  PeopleType[],
   React.Dispatch<React.SetStateAction<PeopleType[]>>,
-  string,
   string,
   string,
   React.Dispatch<React.SetStateAction<string>>,
 ];
 
 export default function Main() {
-  const [people, setPeople, countPeople, valueSearch, currentPage, setCurrentPage] =
-    useOutletContext<OutletParams>();
+  const [setPeople, countPeople, currentPage, setCurrentPage] = useOutletContext<OutletParams>();
+  const { people } = useContext(Context);
   const navigation = useNavigation();
   return (
     <main className={style.main}>
@@ -37,7 +37,6 @@ export default function Main() {
             setPeople={setPeople}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
-            valueSearch={valueSearch}
           />
         </div>
       ) : (

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Context } from './Context';
 
 import './App.css';
 import { getPeople } from './utils/api';
@@ -43,19 +44,17 @@ export default function App() {
   };
 
   return (
-    <>
+    <Context.Provider value={{ people: people, valueSearch: valueSearch }}>
       <ErrorBoundary>
-        <Header value={valueSearch} onChange={handleChange} onClick={handleSearch} />
+        <Header onChange={handleChange} onClick={handleSearch} />
       </ErrorBoundary>
       {loading ? (
         <Loading />
       ) : (
         <ErrorBoundary>
-          <Outlet
-            context={[people, setPeople, countPeople, valueSearch, currentPage, setCurrentPage]}
-          />
+          <Outlet context={[setPeople, countPeople, currentPage, setCurrentPage]} />
         </ErrorBoundary>
       )}
-    </>
+    </Context.Provider>
   );
 }

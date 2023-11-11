@@ -1,18 +1,21 @@
 import { getPeople } from '../../utils/api';
 import { PeopleType } from '../../types/types';
 import style from './Pagination.module.css';
+import { useContext } from 'react';
+import { Context } from '../../Context';
 
 interface Props {
   countPeople: string;
   setPeople: React.Dispatch<React.SetStateAction<PeopleType[]>>;
   currentPage: string;
   setCurrentPage: React.Dispatch<React.SetStateAction<string>>;
-  valueSearch: string;
 }
 
-function Pagination({ countPeople, setPeople, currentPage, setCurrentPage, valueSearch }: Props) {
+function Pagination({ countPeople, setPeople, currentPage, setCurrentPage }: Props) {
+  const { valueSearch } = useContext(Context);
   const sumPages = Math.ceil(+countPeople / 10);
   const arrPage = [];
+
   for (let i = 1; i <= sumPages; i++) {
     arrPage.push(`${i}`);
   }

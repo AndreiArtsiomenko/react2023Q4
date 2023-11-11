@@ -1,14 +1,15 @@
+import { Context } from '../../Context';
 import style from './Header.module.css';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 interface HeaderProps {
-  value: string;
   onChange: (e: string) => void;
   onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-export default function Header({ value, onChange, onClick }: HeaderProps) {
+export default function Header({ onChange, onClick }: HeaderProps) {
   const [error, setError] = useState<boolean>(false);
+  const { valueSearch } = useContext(Context);
 
   if (error) {
     throw Error('Error!!!');
@@ -20,7 +21,7 @@ export default function Header({ value, onChange, onClick }: HeaderProps) {
         <input
           className={style.search}
           type="text"
-          value={value}
+          value={valueSearch}
           onChange={(e) => onChange(e.target.value)}
         />
         <button type="submit" onClick={(e) => onClick(e)}>
