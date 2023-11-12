@@ -4,7 +4,7 @@ import App from './App';
 
 describe('App test', () => {
   test('should show loading', () => {
-    render(<App> </App>);
+    render(<App></App>);
     expect(screen.getByText(/Loading/i)).toBeInTheDocument();
   });
 });
