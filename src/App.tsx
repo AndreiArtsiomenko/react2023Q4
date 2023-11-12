@@ -7,8 +7,8 @@ import { PeopleType } from './types/types';
 
 import Header from './components/Header/Header';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
-import { Outlet } from 'react-router-dom';
 import Loading from './components/Loading/Loading';
+import Main from './components/Main/Main';
 
 export default function App() {
   const [people, setPeople] = useState<PeopleType[]>([]);
@@ -52,7 +52,12 @@ export default function App() {
         <Loading />
       ) : (
         <ErrorBoundary>
-          <Outlet context={[setPeople, countPeople, currentPage, setCurrentPage]} />
+          <Main
+            setPeople={setPeople}
+            countPeople={countPeople}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
         </ErrorBoundary>
       )}
     </Context.Provider>

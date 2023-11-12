@@ -9,16 +9,14 @@ import {
 import './index.css';
 import App from './App';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
-import Main from './components/Main/Main';
 import Person from './components/Person/Person';
 import { getPerson } from './utils/api';
+import Page404 from './components/Page404/Page404';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<App />}>
-      <Route path="/" element={<Main />}>
-        <Route path="people/:id" element={<Person />} loader={getPerson} />
-      </Route>
+    <Route path="/" element={<App />} errorElement={Page404}>
+      <Route path="people/:id" element={<Person />} loader={getPerson} />
     </Route>
   )
 );
