@@ -20,6 +20,7 @@
     }
   },
   "lint-staged": {
+    "*.test.{ts,tsx}": "npm run coverage",
     "*.{ts,tsx}": "npm run lint"
   },
   "dependencies": {
