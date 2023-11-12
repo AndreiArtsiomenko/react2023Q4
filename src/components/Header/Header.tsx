@@ -12,7 +12,7 @@ export default function Header({ onChange, onClick }: HeaderProps) {
   const { valueSearch } = useContext(Context);
 
   if (error) {
-    throw Error('Error!!!');
+    throw new Error('Error!!!');
   }
   return (
     <header className={style.header}>
