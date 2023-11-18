@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+button {
+  padding: 0.7rem;
+  border: 3px solid rgba(255, 255, 255, 0.87);
+  border-radius: 0.5rem;
+}

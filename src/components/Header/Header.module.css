@@ -1,0 +1,18 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 3rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.87);
+  color: #ffe300;
+}
+
+.search {
+  margin-right: 1rem;
+  padding: 0.5rem;
+}
+
+.header button {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
