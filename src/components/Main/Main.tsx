@@ -5,14 +5,13 @@ import CardPerson from '../CardPerson/CardPerson';
 import Pagination from '../Pagination/Pagination';
 import { useGetPeopleQuery } from '../../store/apiSlice';
 import Loading from '../Loading/Loading';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
-interface Props {
-  currentPage: string;
-  setCurrentPage: React.Dispatch<React.SetStateAction<string>>;
-}
-
-export default function Main({ currentPage, setCurrentPage }: Props) {
-  const { data, isLoading } = useGetPeopleQuery({ search: '', page: '1' });
+export default function Main() {
+  const valueSearch = useSelector((state: RootState) => state.people.valueSearch);
+  const page = useSelector((state: RootState) => state.people.page);
+  const { data, isLoading } = useGetPeopleQuery({ search: valueSearch, page: page });
 
   let content;
 
@@ -34,11 +33,7 @@ export default function Main({ currentPage, setCurrentPage }: Props) {
                 );
               })}
             </div>
-            <Pagination
-              countPeople={data.count}
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-            />
+            <Pagination countPeople={data.count} />
           </div>
         ) : (
           <h2>Not Found</h2>

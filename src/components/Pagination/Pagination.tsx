@@ -1,18 +1,19 @@
-import { getPeople } from '../../utils/api';
-import { PeopleType } from '../../types/types';
 import style from './Pagination.module.css';
-import { useContext } from 'react';
-import { Context } from '../../Context';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+import { useChangeSearchMutation } from '../../store/apiSlice';
+import { changePage } from '../../store/peopleSlice';
 
 interface Props {
   countPeople: string;
-  setPeople: React.Dispatch<React.SetStateAction<PeopleType[]>>;
-  currentPage: string;
-  setCurrentPage: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function Pagination({ countPeople, setPeople, currentPage, setCurrentPage }: Props) {
-  const { valueSearch } = useContext(Context);
+function Pagination({ countPeople }: Props) {
+  const valueSearch = useSelector((state: RootState) => state.people.valueSearch);
+  const currentPage = useSelector((state: RootState) => state.people.page);
+  const [changeSearch] = useChangeSearchMutation();
+  const dispatch = useDispatch();
+
   const sumPages = Math.ceil(+countPeople / 10);
   const arrPage = [];
 
@@ -21,10 +22,8 @@ function Pagination({ countPeople, setPeople, currentPage, setCurrentPage }: Pro
   }
 
   const handleClick = (param: string) => {
-    getPeople(valueSearch, param).then((res) => {
-      setCurrentPage(param);
-      setPeople(res.results);
-    });
+    dispatch(changePage(param));
+    changeSearch({ search: valueSearch, page: param });
   };
 
   return (
