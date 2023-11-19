@@ -19,6 +19,7 @@ export default function Main() {
     content = <Loading />;
   } else {
     const peopleArr: PeopleType[] = data.results;
+
     content = (
       <main className={style.main}>
         {peopleArr.length ? (

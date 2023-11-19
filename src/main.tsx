@@ -7,7 +7,6 @@ import './index.css';
 import App from './App';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import Person from './components/Person/Person';
-import { getPerson } from './utils/api';
 import Page404 from './components/Page404/Page404';
 
 const router = createBrowserRouter([
@@ -19,7 +18,6 @@ const router = createBrowserRouter([
       {
         path: 'people/:id',
         element: <Person />,
-        loader: getPerson,
       },
     ],
   },
