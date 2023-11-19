@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { store } from './store/store';
+import { Provider } from 'react-redux';
 import './index.css';
 import App from './App';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
@@ -24,9 +26,9 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <ErrorBoundary>
+  <ErrorBoundary>
+    <Provider store={store}>
       <RouterProvider router={router} />
-    </ErrorBoundary>
-  </React.StrictMode>
+    </Provider>
+  </ErrorBoundary>
 );
