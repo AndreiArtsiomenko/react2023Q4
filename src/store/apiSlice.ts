@@ -7,7 +7,10 @@ export const apiSlice = createApi({
     getPeople: builder.query({
       query: (paramSearch) => `?search=${paramSearch.search}&page=${paramSearch.page}`,
     }),
+    changeSearch: builder.mutation({
+      query: (paramSearch) => `?search=${paramSearch.search}&page=${paramSearch.page}`,
+    }),
   }),
 });
 
-export const { useGetPeopleQuery } = apiSlice;
+export const { useGetPeopleQuery, useChangeSearchMutation } = apiSlice;
