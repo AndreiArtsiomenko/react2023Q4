@@ -9,10 +9,11 @@ import {
 import App from './components/App/App';
 import './index.css';
 import FirstForm from './components/FirstForm/FirstForm';
+import Layout from './components/Layout/Layout';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/">
+    <Route path="/" element={<Layout />}>
       <Route index element={<App />} />
       <Route path="first" element={<FirstForm />} />
       <Route path="second" element={<div>Form 2</div>} />
