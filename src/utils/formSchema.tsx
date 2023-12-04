@@ -2,8 +2,8 @@ import { object, string, number, boolean, ref } from 'yup';
 
 const schema = object().shape({
   name: string()
-    .required('Required field')
-    .matches(/^[A-Z].*$/, 'The first letter should be capital'),
+    .matches(/^[A-Z].*$/, 'The first letter should be capital')
+    .required('Required field'),
   age: number().required('Required field').positive('Positive number').integer('Integer number'),
   email: string().required('Required field').email(),
   passwordFirst: string()
@@ -19,6 +19,7 @@ const schema = object().shape({
   gender: string().required('Required field'),
   country: string().required('Required field'),
   accept: boolean().required('Required field').oneOf([true], 'You must accept'),
+  picture: string().required('Required field'),
 });
 
 export default schema;
