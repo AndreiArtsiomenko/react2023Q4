@@ -1,10 +1,13 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ValidationError } from 'yup';
+import { useDispatch } from 'react-redux';
+import { addFormData } from '../../store/slices/formDataSlice';
 import schema from '../../utils/formSchema';
 import formDataType from '../../types/type';
 
 const FirstForm = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const inputName = useRef<HTMLInputElement>(null);
   const inputAge = useRef<HTMLInputElement>(null);
@@ -34,6 +37,7 @@ const FirstForm = () => {
 
     try {
       await schema.validate(formData, { abortEarly: false });
+      dispatch(addFormData({ ...formData }));
       setErrors([]);
       navigate('/');
     } catch (error) {

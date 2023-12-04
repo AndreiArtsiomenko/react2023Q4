@@ -1,22 +1,26 @@
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import schema from '../../utils/formSchema';
 import formDataType from '../../types/type';
+import { addFormData } from '../../store/slices/formDataSlice';
 
 const SecondForm = () => {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
+    mode: 'onChange',
     resolver: yupResolver(schema),
   });
   const navigate = useNavigate();
 
   const onSubmitHandler = (data: formDataType) => {
     navigate('/');
-    return data;
+    dispatch(addFormData({ ...data }));
   };
 
   return (
