@@ -1,13 +1,17 @@
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import schema from '../../utils/formSchema';
 import formDataType from '../../types/type';
 import { addFormData } from '../../store/slices/formDataSlice';
+import { RootState } from '../../store/store';
 
 const SecondForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { countriesData } = useSelector((state: RootState) => state);
+
   const {
     register,
     handleSubmit,
@@ -16,7 +20,6 @@ const SecondForm = () => {
     mode: 'onChange',
     resolver: yupResolver(schema),
   });
-  const navigate = useNavigate();
 
   const onSubmitHandler = (data: formDataType) => {
     navigate('/');
@@ -53,17 +56,21 @@ const SecondForm = () => {
               Gender:
               <select {...register('gender')} id="gender" defaultValue="">
                 <option disabled></option>
-                <option value="man">Man</option>
-                <option value="woman">Woman</option>
+                <option value="man">Male</option>
+                <option value="woman">Female</option>
               </select>
             </label>
             {errors.gender && <p className="error__massage">{errors.gender?.message}</p>}
             <label className="label__select" htmlFor="country">
               Country:
-              <select {...register('country')} id="country" defaultValue="">
-                <option disabled></option>
-                <option value="BLR">BLR</option>
-                <option value="RUS">RUS</option>
+              <select {...register('country')} id="country" autoComplete="on">
+                {countriesData.countries.map((item) => {
+                  return (
+                    <option key={item} value={item}>
+                      {item}
+                    </option>
+                  );
+                })}
               </select>
             </label>
             {errors.country && <p className="error__massage">{errors.country?.message}</p>}

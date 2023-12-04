@@ -1,14 +1,17 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ValidationError } from 'yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addFormData } from '../../store/slices/formDataSlice';
 import schema from '../../utils/formSchema';
 import formDataType from '../../types/type';
+import { RootState } from '../../store/store';
 
 const FirstForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { countriesData } = useSelector((state: RootState) => state);
+
   const inputName = useRef<HTMLInputElement>(null);
   const inputAge = useRef<HTMLInputElement>(null);
   const inputEmail = useRef<HTMLInputElement>(null);
@@ -18,6 +21,7 @@ const FirstForm = () => {
   const selectCountry = useRef<HTMLSelectElement>(null);
   const inputCheckbox = useRef<HTMLInputElement>(null);
   const inputFile = useRef<HTMLInputElement>(null);
+
   const [errors, setErrors] = useState<ValidationError[]>([]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -82,8 +86,8 @@ const FirstForm = () => {
               Gender:
               <select name="gender" id="gender" ref={selectGender} defaultValue="">
                 <option disabled></option>
-                <option value="man">Man</option>
-                <option value="woman">Woman</option>
+                <option value="man">Male</option>
+                <option value="woman">Female</option>
               </select>
             </label>
             <p className="error__massage">
@@ -91,10 +95,14 @@ const FirstForm = () => {
             </p>
             <label className="label__select" htmlFor="country">
               Country:
-              <select name="country" id="country" ref={selectCountry} defaultValue="">
-                <option disabled></option>
-                <option value="BLR">BLR</option>
-                <option value="RUS">RUS</option>
+              <select name="country" id="country" ref={selectCountry} autoComplete="on">
+                {countriesData.countries.map((item) => {
+                  return (
+                    <option key={item} value={item}>
+                      {item}
+                    </option>
+                  );
+                })}
               </select>
             </label>
             <p className="error__massage">
